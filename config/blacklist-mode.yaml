@@ -1,0 +1,68 @@
+# 黑名单模式配置示例
+# 仅命中的流量走代理，其余直连。适合服务器质量一般、流量紧缺的用户。
+#
+# 使用前请确保：
+# 1. 在 proxies 或 proxy-groups 中定义名为 PROXY 的代理组
+# 2. 根据实际需求调整规则顺序
+
+rule-providers:
+  adblock-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-domain.yaml
+    path: ./ruleset/adblock-domain.yaml
+    interval: 604800
+
+  adblock-ipcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/adblock-ipcidr.yaml
+    path: ./ruleset/adblock-ipcidr.yaml
+    interval: 604800
+
+  proxy:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy.yaml
+    path: ./ruleset/proxy.yaml
+    interval: 604800
+
+  proxy-ipcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/proxy-ipcidr.yaml
+    path: ./ruleset/proxy-ipcidr.yaml
+    interval: 604800
+
+  direct-domain:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/direct-domain.yaml
+    path: ./ruleset/direct-domain.yaml
+    interval: 604800
+
+  direct-ipcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/rules/direct-ipcidr.yaml
+    path: ./ruleset/direct-ipcidr.yaml
+    interval: 604800
+
+rules:
+  # 广告拦截
+  - RULE-SET,adblock-domain,REJECT
+  - RULE-SET,adblock-ipcidr,REJECT,no-resolve
+
+  # 代理
+  - RULE-SET,proxy,PROXY
+  - RULE-SET,proxy-ipcidr,PROXY,no-resolve
+
+  # 直连
+  - RULE-SET,direct-domain,DIRECT
+  - RULE-SET,direct-ipcidr,DIRECT,no-resolve
+
+  # 中国 IP 直连
+  - GEOIP,CN,DIRECT,no-resolve
+
+  # 兜底：未命中的流量直连
+  - MATCH,DIRECT
