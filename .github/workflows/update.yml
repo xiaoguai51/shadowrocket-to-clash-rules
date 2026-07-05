@@ -1,0 +1,49 @@
+name: Update Rules
+
+on:
+  schedule:
+    # 每周一北京时间 06:00 (UTC 周日 22:00)
+    - cron: '0 22 * * 0'
+
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip3 install -r scripts/requirements.txt || true
+
+      - name: Run converter
+        run: python3 scripts/convert.py --output-dir rules
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git add rules/
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes detected."
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes detected."
+          fi
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git commit -m "Auto-update rule sets ($(date -u '+%Y-%m-%d %H:%M:%S') UTC)"
+          git push
