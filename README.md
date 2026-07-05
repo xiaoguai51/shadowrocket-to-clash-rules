@@ -1,13 +1,60 @@
 # Clash Premium 规则集 · 一键配置模板
 
-从原始数据源直接构建 **Clash Premium** 内核兼容的规则集（RULE-SET）与一键导入配置模板，适用于所有基于 Clash Premium / mihomo 内核的 GUI 客户端。
+## 写在前面 —— 请保护好自己
 
-本项目从多个开源广告拦截和代理规则数据源（EasyList、乘风规则、GFWList 等）直接构建，跳过中间格式转换，零格式损耗。同时保留 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) 项目手动维护的中国 APP 广告拦截规则。
+小伙伴们第一次进入外网，往往带着强烈的好奇心去探索。但我希望大家在面对新鲜事物和多元内容时，不忘本心——不要被极端组织洗脑，更不要对我们的国家做出抨击。
+
+刚开始，大家可能只是看看搞笑视频、搞怪内容，去推特看看特朗普也都挺有意思。但随着好奇心驱使，可能会逐步寻找猎奇内容，接触到一些极端言论——这也正是国家建立 GFW 保护大家的一份初心。
+
+我希望大家务必保护好自己。我们自认为打破了信息壁垒，其实也打破了保护我们的屏障。外网确实存在大量误导性言论，来自各利益集团对中国网民的疯狂洗脑。他们往往喜欢以"平等""自由"等旗号自称，但仔细想想，真的是这样吗？我不认为资本给的自由叫自由——他们更像是打着自由的旗号给上游资本更多特权，并告诉大家"你到我这个位置也可以享受特权"，但他们不会提到，这份特权是带有护城河的，大部分群众一辈子都无法触及。
+
+> 本规则仅供大家更便捷地学习和工作。如果你是持反对意见的极端政治人士，或已被洗脑，请立即离开——**本项目不对你开放。**
+
+---
+
+## 简介
+
+本项目生成适用于 Clash Premium 内核的规则集（RULE-SET），同时适用于所有使用 Clash Premium / mihomo 内核的 Clash 图形用户界面（GUI）客户端，包括但不限于 ClashX Pro、Clash Verge Rev、FlClash、Clash for Windows、ClashMi、Clash Meta for Android、OpenClash。
+
+从多个开源广告拦截和代理规则数据源（EasyList、乘风规则、GFWList 等）直接构建，跳过中间格式转换，零格式损耗。同时保留 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) 项目手动维护的中国 APP 广告拦截规则。
 
 - **7 组规则集** — 广告拦截 / 代理 / 直连，`.yaml` + `.txt` 双格式
-- **3 种一键配置模板** — 黑名单 / 白名单 / 仅去广告，`clash://` 链接一键导入
+- **3 种一键配置模板** — 黑名单 / 白名单 / 仅去广告，一键导入即用
 - **每周自动更新** — GitHub Actions 每周一北京时间 06:00 拉取最新数据源
 - **零依赖构建** — 纯 Python 标准库，无第三方包
+
+---
+
+## 说明
+
+本项目的规则集（RULE-SET）适用于 Clash Premium 及 mihomo（原 Clash Meta）内核。Clash Premium 相对于普通版，增加了 TUN 增强模式，能接管设备所有 TCP 和 UDP 流量，实现全局透明代理。
+
+### 客户端下载
+
+> 以下客户端均兼容本项目的规则集和配置模板。**推荐优先选择活跃维护的客户端。**
+
+#### 活跃维护
+
+| 客户端 | 平台 | 下载地址 |
+|--------|------|---------|
+| [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev) | Windows / macOS / Linux | [GitHub Releases](https://github.com/clash-verge-rev/clash-verge-rev/releases) |
+| [FlClash](https://github.com/chen08209/FlClash) | Windows / macOS / Android | [GitHub Releases](https://github.com/chen08209/FlClash/releases) |
+| [ClashMi](https://github.com/KaringX/clashmi) | Windows / macOS / Android / iOS | [GitHub Releases](https://github.com/KaringX/clashmi/releases) |
+| [Mihomo Party](https://github.com/mihomo-party-org/mihomo-party) | Windows / macOS / Linux | [GitHub Releases](https://github.com/mihomo-party-org/mihomo-party/releases) |
+| [Clash Nyanpasu](https://github.com/libnyanpasu/clash-nyanpasu) | Windows / macOS / Linux | [GitHub Releases](https://github.com/libnyanpasu/clash-nyanpasu/releases) |
+| [Clash Meta for Android](https://github.com/MetaCubeX/ClashMetaForAndroid) | Android | [GitHub Releases](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) |
+| [Hiddify Next](https://github.com/hiddify/hiddify-app) | Windows / macOS / Android / iOS | [GitHub Releases](https://github.com/hiddify/hiddify-app/releases) |
+| [OpenClash](https://github.com/vernesong/OpenClash) | OpenWrt | [GitHub Releases](https://github.com/vernesong/OpenClash/releases) |
+
+#### 已停止维护（不建议新用户使用）
+
+| 客户端 | 平台 | 说明 |
+|--------|------|------|
+| ClashX Pro | macOS | 原版已停止维护，建议使用 Clash Verge Rev 或 Mihomo Party 替代 |
+| Clash for Windows | Windows | 原版已停止维护，建议使用 Clash Verge Rev 或 FlClash 替代 |
+| Clash Verge | Windows / macOS | 已由 Clash Verge Rev 接续维护 |
+
+> **内核项目**：[mihomo（原 Clash Meta）](https://github.com/MetaCubeX/mihomo) — 当前多数客户端的核心，支持多种协议与 TUN 增强模式。
 
 ---
 
@@ -39,17 +86,17 @@
 
 ### 方式一：一键导入（推荐）
 
-提供 3 种预设完整配置模板，点击链接即可一键导入 Clash 客户端（支持 Clash for Windows、Clash Verge 等）：
+提供 3 种预设完整配置模板，点击下方链接进入导入页面，选择模式后一键导入 Clash 客户端：
 
-| 模式 | 说明 | 一键导入链接 |
-|------|------|-------------|
-| 黑名单 + 去广告 | 被墙网站走代理，其余直连，同时去广告 | [点击导入](clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-blacklist.yaml&name=Blacklist%2BADblock) |
-| 白名单 + 去广告 | 常见直连网站直连，其余境外走代理，同时去广告 | [点击导入](clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-whitelist.yaml&name=Whitelist%2BADblock) |
-| 仅去广告 | 所有流量直连，仅拦截广告（**无需节点，导入即用**） | [点击导入](clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-adblock-only.yaml&name=AdblockOnly) |
+**[→ 点击进入一键导入页面](https://xiaoguai51.github.io/shadowrocket-to-clash-rules/)**
 
-> 如果 `raw.githubusercontent.com` 无法访问，可将链接中的 URL 域名替换为 jsDelivr CDN：
-> - `raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/` → `cdn.jsdelivr.net/gh/xiaoguai51/shadowrocket-to-clash-rules@main/`
-> - jsDelivr 有约 12 小时缓存延迟
+| 模式 | 说明 | 需要节点 |
+|------|------|---------|
+| 黑名单 + 去广告 | 被墙网站走代理，其余直连，同时去广告 | 是（导入后添加） |
+| 白名单 + 去广告 | 常见直连网站直连，其余境外走代理，同时去广告 | 是（导入后添加） |
+| 仅去广告 | 所有流量直连，仅拦截广告 | **否（导入即用）** |
+
+> 如果一键导入没有反应，可在导入页面点击「复制链接」，在 Clash 客户端的「订阅 / 配置下载」中手动粘贴。
 
 ### 方式二：手动 URL 导入
 
@@ -355,19 +402,6 @@ IP-CIDR 类型的规则集建议在 `rules` 段添加 `,no-resolve` 后缀，避
 - **代理规则**：从 GFWList 原始 base64 编码文件直接下载、解码并解析，提取纯域名
 - **手动规则**：引用 Shadowrocket-ADBlock-Rules-Forever 项目 `build/factory/` 目录下的手动维护文件
 - **格式参考**：参考 Loyalsoldier/clash-rules 的规则集格式和文档结构，但构建逻辑独立实现，不使用其代码
-
----
-
-## 兼容客户端
-
-所有基于 Clash Premium / mihomo 内核的客户端：
-
-- ClashX Pro (macOS)
-- Clash Verge Rev (Windows / macOS / Linux)
-- Clash for Windows
-- Clash Meta for Android
-- OpenClash (OpenWrt)
-- mihomo (原 Clash Meta) 内核
 
 ---
 
