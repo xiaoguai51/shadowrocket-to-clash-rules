@@ -1,4 +1,4 @@
-# Clash Premium 规则集 · 一键配置模板
+# Clash Premium 规则集 · 一键配置模板 · 最完善的Clash规则
 
 ## 写在前面 —— 请保护好自己
 
