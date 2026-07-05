@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash Premium 规则集 · 一键导入</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #0f1117;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            text-align: center;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: #1a1d27;
+            border: 1px solid #2a2d3a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: #6c5ce7;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .card-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-proxy { background: #2d3548; color: #74b9ff; }
+        .badge-direct { background: #2d3a2d; color: #55efc4; }
+        .badge-adblock { background: #3a2d2d; color: #ff7675; }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .card-desc {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-import {
+            display: inline-block;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: opacity 0.2s, transform 0.1s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-import:hover { opacity: 0.9; }
+        .btn-import:active { transform: scale(0.97); }
+
+        .btn-copy {
+            padding: 10px 16px;
+            background: transparent;
+            color: #888;
+            border: 1px solid #333;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-copy:hover {
+            border-color: #555;
+            color: #ccc;
+        }
+
+        .btn-copy.copied {
+            border-color: #55efc4;
+            color: #55efc4;
+        }
+
+        .url-hint {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #666;
+            word-break: break-all;
+        }
+
+        .note {
+            margin-top: 32px;
+            padding: 16px;
+            background: #1a1d27;
+            border-left: 3px solid #6c5ce7;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.85rem;
+            color: #aaa;
+            line-height: 1.7;
+        }
+
+        .note strong { color: #ddd; }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #555;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: #6c5ce7;
+            text-decoration: none;
+        }
+
+        .footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.4rem; }
+            .card { padding: 18px; }
+            .btn-import { width: 100%; text-align: center; }
+            .btn-copy { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clash Premium 规则集 · 一键导入</h1>
+        <p class="subtitle">选择适合你的模式，点击按钮即可导入 Clash 客户端</p>
+
+        <!-- 黑名单模式 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-badge badge-proxy">代理</span>
+                <span class="card-title">黑名单 + 去广告</span>
+            </div>
+            <p class="card-desc">
+                被墙网站走代理，其余直连，同时拦截广告。适合服务器质量一般、流量紧缺的用户。导入后需添加代理节点。
+            </p>
+            <div class="btn-group">
+                <a class="btn-import" href="clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-blacklist.yaml&name=Blacklist%2BADblock">一键导入</a>
+                <button class="btn-copy" onclick="copyUrl(this, 'https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/config/full-blacklist.yaml')">复制链接</button>
+            </div>
+            <p class="url-hint">手动导入：在 Clash 客户端的「订阅 / 配置下载」中粘贴上方链接</p>
+        </div>
+
+        <!-- 白名单模式 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-badge badge-proxy">代理</span>
+                <span class="card-title">白名单 + 去广告</span>
+            </div>
+            <p class="card-desc">
+                常见直连网站直连，其余境外走代理，同时拦截广告。适合服务器稳定、流量充足的用户。导入后需添加代理节点。
+            </p>
+            <div class="btn-group">
+                <a class="btn-import" href="clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-whitelist.yaml&name=Whitelist%2BADblock">一键导入</a>
+                <button class="btn-copy" onclick="copyUrl(this, 'https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/config/full-whitelist.yaml')">复制链接</button>
+            </div>
+            <p class="url-hint">手动导入：在 Clash 客户端的「订阅 / 配置下载」中粘贴上方链接</p>
+        </div>
+
+        <!-- 仅去广告模式 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-badge badge-adblock">去广告</span>
+                <span class="card-title">仅去广告（推荐新手）</span>
+            </div>
+            <p class="card-desc">
+                所有流量直连，仅拦截广告域名和 IP。<strong style="color:#55efc4">无需代理节点，导入即用。</strong>适合不需要代理、只想去广告的用户。
+            </p>
+            <div class="btn-group">
+                <a class="btn-import" href="clash://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2Fxiaoguai51%2Fshadowrocket-to-clash-rules%2Fmain%2Fconfig%2Ffull-adblock-only.yaml&name=AdblockOnly">一键导入</a>
+                <button class="btn-copy" onclick="copyUrl(this, 'https://raw.githubusercontent.com/xiaoguai51/shadowrocket-to-clash-rules/main/config/full-adblock-only.yaml')">复制链接</button>
+            </div>
+            <p class="url-hint">手动导入：在 Clash 客户端的「订阅 / 配置下载」中粘贴上方链接</p>
+        </div>
+
+        <div class="note">
+            <strong>使用说明</strong><br>
+            1. 确保已安装 Clash 客户端（如 Clash Verge Rev、FlClash、Clash Meta for Android 等）<br>
+            2. 点击「一键导入」按钮，浏览器会自动唤起 Clash 客户端并导入配置<br>
+            3. 如果一键导入没反应，点击「复制链接」，在 Clash 客户端中手动粘贴导入<br>
+            4. 黑名单/白名单模式导入后，需在配置中添加自己的代理节点<br>
+            5. 规则集每周一北京时间 06:00 自动更新，无需重新导入<br>
+            6. 如果 raw.githubusercontent.com 无法访问，可将链接域名替换为 cdn.jsdelivr.net/gh
+        </div>
+
+        <div class="footer">
+            <a href="https://github.com/xiaoguai51/shadowrocket-to-clash-rules">GitHub 仓库</a>
+            <span> · </span>
+            <span>本项目仅用于学习和研究目的</span>
+        </div>
+    </div>
+
+    <script>
+        function copyUrl(btn, url) {
+            navigator.clipboard.writeText(url).then(function() {
+                btn.textContent = '已复制';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                    btn.textContent = '复制链接';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
