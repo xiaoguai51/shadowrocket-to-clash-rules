@@ -6,14 +6,33 @@ Clash 规则集构建器 — 从中间产物生成 Clash Premium 兼容的规则
 和 manual_*.txt 手动规则文件，按策略（REJECT/PROXY/DIRECT）和类型
 （domain/ipcidr/classical）分类，生成 .yaml 和 .txt 格式的规则集文件。
 
+数据流:
+    tmp/ad_domains.txt ─────────────────┐
+    tmp/ad_ips.txt ─────────────────────┤
+    tmp/gfw_domains.txt ────────────────┤
+    tmp/manual_reject.txt ──────────────┤
+    tmp/manual_proxy.txt ───────────────┼─→ 分类合并 ─→ rules/*.yaml + rules/*.txt
+    tmp/manual_direct.txt ──────────────┤                    (7 组规则集)
+    tmp/manual_gfwlist.txt ─────────────┘
+
 输出 7 组规则集到 rules/ 目录：
-  1. adblock-domain   (domain)    — 广告拦截域名
-  2. adblock-ipcidr   (ipcidr)    — 广告拦截 IP
-  3. proxy-domain     (domain)    — 代理域名
-  4. proxy-classical  (classical) — 代理关键字
-  5. proxy-ipcidr     (ipcidr)    — 代理 IP
-  6. direct-domain    (domain)    — 直连域名
-  7. direct-ipcidr    (ipcidr)    — 直连 IP
+  1. adblock-domain   (domain)    — 广告拦截域名 (ad_domains + manual_reject 域名)
+  2. adblock-ipcidr   (ipcidr)    — 广告拦截 IP (ad_ips + manual_reject IP)
+  3. proxy-domain     (domain)    — 代理域名 (gfw_domains + manual_gfwlist + manual_proxy 域名)
+  4. proxy-classical  (classical) — 代理关键字 (manual_proxy 中的 DOMAIN-KEYWORD)
+  5. proxy-ipcidr     (ipcidr)    — 代理 IP (manual_proxy 中的 IP/CIDR)
+  6. direct-domain    (domain)    — 直连域名 (manual_direct 域名)
+  7. direct-ipcidr    (ipcidr)    — 直连 IP (manual_direct IP/CIDR)
+
+Clash behavior 类型说明:
+    domain    — 纯域名列表, Clash 自动匹配 DOMAIN-SUFFIX
+    ipcidr    — IP/CIDR 列表, 匹配 IP-CIDR 规则
+    classical — 混合格式, 每行带 TYPE 前缀 (如 DOMAIN-KEYWORD,google)
+
+IP 规范化:
+    192.168.1.1     → 192.168.1.1/32  (裸 IPv4 补 /32)
+    2001:db8::1     → 2001:db8::1/128  (裸 IPv6 补 /128)
+    192.168.1.0/24  → 192.168.1.0/24   (已有 CIDR 不变)
 
 零第三方依赖，仅使用 Python 标准库。
 """

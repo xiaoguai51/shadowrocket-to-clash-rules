@@ -6,6 +6,25 @@
 正确处理 ||domain^ 格式、@@例外规则，跳过含 $/## 的行。
 输出到 tmp/ad_domains.txt 和 tmp/ad_ips.txt。
 
+数据流:
+    EasyList China  ─┐
+    EasyList+China  ─┤
+    乘风广告规则    ─┼─→ download_text() ─→ parse_adblock_content() ─→ {domains, ips}
+    Peter Lowe      ─┘                                                    ↓
+                                                            tmp/ad_domains.txt (纯域名, 去重排序)
+                                                            tmp/ad_ips.txt     (IP/CIDR, 去重排序)
+
+Adblock Plus 格式解析示例:
+    ||example.com^          → 域名: example.com
+    ||ads.example.com^      → 域名: ads.example.com
+    @@||safe.example.com^   → 例外: 从结果中移除 safe.example.com
+    /banner/*/img^          → 跳过 (URL 模式, 非纯域名)
+    example.com$third-party → 跳过 (含 $ 选项修饰符)
+    ##.ad-banner            → 跳过 (元素隐藏 / CSS 选择器)
+    ! This is a comment     → 跳过 (注释行)
+    192.168.1.0/24          → IP: 192.168.1.0/24
+    2001:db8::/32           → IP: 2001:db8::/32
+
 零第三方依赖，仅使用 Python 标准库。
 """
 

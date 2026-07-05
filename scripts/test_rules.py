@@ -2,13 +2,25 @@
 """
 测试脚本 — 验证生成的 Clash 规则集文件的正确性。
 
+测试矩阵 (每个规则集 5 项测试, 共 7 组 = 35 项):
+    ┌────────────────┬───────────┬──────────┬──────┬──────────┬──────────┐
+    │ 规则集          │ behavior  │ 非空?    │ 去重?│ 类型正确?│ 格式正确?│
+    ├────────────────┼───────────┼──────────┼──────┼──────────┼──────────┤
+    │ adblock-domain  │ domain    │ 必须非空 │ ✓    │ 无 IP    │ payload: │
+    │ adblock-ipcidr  │ ipcidr    │ 必须非空 │ ✓    │ 无域名   │ payload: │
+    │ proxy-domain    │ domain    │ 必须非空 │ ✓    │ 无 IP    │ payload: │
+    │ proxy-classical │ classical │ 允许空   │ ✓    │ 有前缀   │ payload: │
+    │ proxy-ipcidr    │ ipcidr    │ 允许空   │ ✓    │ 无域名   │ payload: │
+    │ direct-domain   │ domain    │ 必须非空 │ ✓    │ 无 IP    │ payload: │
+    │ direct-ipcidr   │ ipcidr    │ 允许空   │ ✓    │ 无域名   │ payload: │
+    └────────────────┴───────────┴──────────┴──────┴──────────┴──────────┘
+
 测试项目：
-  1. 格式验证: .yaml 文件有 payload: 字段
-  2. 类型验证: domain 文件不含 IP，ipcidr 文件不含域名
-  3. 去重验证: 每个文件内无重复条目
-  4. 非空验证: 每个文件至少有 1 条规则
-  5. 计数验证: 打印每个文件的条目数
-  6. 一致性验证: .yaml 和 .txt 文件条目数一致
+  1. 非空验证: 每个文件至少有 1 条规则 (allow_empty 的除外)
+  2. 去重验证: 每个文件内无重复条目
+  3. 类型验证: domain 文件不含 IP，ipcidr 文件不含域名，classical 有 TYPE 前缀
+  4. 格式验证: .yaml 文件有 payload: 字段
+  5. 一致性验证: .yaml 和 .txt 文件条目数一致
 
 支持 --rules-dir 参数指定规则集目录。
 

@@ -6,6 +6,23 @@ GFWList 解析器 — 下载并解析 GFWList 和 cn-blocked-domain。
 解析提取纯域名，读取 manual_gfwlist_excludes.txt 排除误杀域名。
 输出到 tmp/gfw_domains.txt。
 
+数据流:
+    GFWList (base64) ─→ b64decode ─→ parse_gfwlist_content() ─┐
+                                                               │
+    cn-blocked-domain ─→ parse_plain_domains() ────────────────┤──→ 合并去重
+                                                               │        ↓
+    manual_gfwlist_excludes.txt ─→ load_excludes() ────────────┤──→ 排除误杀
+                                                               │        ↓
+                                                    tmp/gfw_domains.txt (纯域名, 去重排序)
+
+GFWList 格式解析示例:
+    ||example.com           → 域名: example.com (Adblock Plus 语法)
+    |https://example.com    → 域名: example.com (URL 前缀)
+    *.example.com           → 域名: example.com (去掉通配符)
+    https://example.com/path→ 域名: example.com (截取 hostname)
+    ! Comment               → 跳过 (注释)
+    ##.selector             → 跳过 (元素隐藏)
+
 零第三方依赖，仅使用 Python 标准库。
 """
 

@@ -245,12 +245,50 @@ IP-CIDR 类型的规则集建议在 `rules` 段添加 `,no-resolve` 后缀，避
 
 ---
 
-## 致谢
+## 致谢与引用
 
-- [Johnshall](https://github.com/johnshall) — Shadowrocket-ADBlock-Rules-Forever 项目维护者
-- [Loyalsoldier](https://github.com/Loyalsoldier) — clash-rules 项目，本项目的文档和格式参考
-- [h2y](https://github.com/h2y) — Shadowrocket-ADBlock-Rules 原作者
-- 所有上游数据源项目的贡献者
+### 项目维护者
+
+本项目由 [xiaoguai51](https://github.com/xiaoguai51) 独立维护，仅用于学习和研究目的。
+
+### 引用的开源项目
+
+本项目从以下开源项目的原始数据源直接构建 Clash 规则集。感谢这些项目及其贡献者的辛勤工作：
+
+#### 广告拦截数据源
+
+| 项目 | 仓库 | 引用内容 |
+|------|------|---------|
+| EasyList | [easylist/easylist](https://github.com/easylist/easylist) | EasyList China、EasyList+China 广告过滤规则（Adblock Plus 格式） |
+| 乘风广告过滤规则 | [xinggsf/Adblock-Plus-Rule](https://github.com/xinggsf/Adblock-Plus-Rule) | 中文广告过滤规则（Adblock Plus 格式） |
+| Peter Lowe's Blocklist | [pgl.yoyo.org](https://pgl.yoyo.org/adservers/) | 广告和隐私跟踪域名列表（Adblock Plus 格式） |
+
+#### 代理规则数据源
+
+| 项目 | 仓库 | 引用内容 |
+|------|------|---------|
+| GFWList | [gfwlist/gfwlist](https://github.com/gfwlist/gfwlist) | 被墙网站列表（base64 编码格式） |
+| cn-blocked-domain | [Johnshall/cn-blocked-domain](https://github.com/Johnshall/cn-blocked-domain) | GFWList 补充域名列表（纯文本格式） |
+
+#### 手动维护规则
+
+| 项目 | 仓库 | 引用内容 |
+|------|------|---------|
+| Shadowrocket-ADBlock-Rules-Forever | [Johnshall/Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) | 中国 APP 广告拦截手动规则（`factory/manual_*.txt`），含优酷、百度、爱奇艺、微博等 APP 的广告拦截规则 |
+
+#### 格式与文档参考
+
+| 项目 | 仓库 | 参考内容 |
+|------|------|---------|
+| clash-rules | [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules) | Clash 规则集 `.yaml` 格式规范、README 文档结构、rule-providers 配置示例 |
+| Shadowrocket-ADBlock-Rules | [h2y/Shadowrocket-ADBlock-Rules](https://github.com/h2y/Shadowrocket-ADBlock-Rules) | 原始 Shadowrocket 广告拦截规则项目，本项目的命名灵感来源 |
+
+### 引用方式说明
+
+- **广告拦截规则**：从 EasyList、乘风规则、Peter Lowe 的原始 Adblock Plus 格式文件直接下载并解析，提取纯域名和 IP，不经过中间格式转换
+- **代理规则**：从 GFWList 原始 base64 编码文件直接下载、解码并解析，提取纯域名
+- **手动规则**：引用 Shadowrocket-ADBlock-Rules-Forever 项目 `build/factory/` 目录下的手动维护文件
+- **格式参考**：参考 Loyalsoldier/clash-rules 的规则集格式和文档结构，但构建逻辑独立实现，不使用其代码
 
 ---
 
@@ -269,6 +307,6 @@ IP-CIDR 类型的规则集建议在 `rules` 段添加 `,no-resolve` 后缀，避
 
 ## 许可证
 
-[MIT License](LICENSE)
+本项目采用 [MIT License](LICENSE)。
 
-本项目仅用于学习和研究目的。感谢以下开源社区项目提供的数据源支持。
+本项目仅用于学习和研究目的。规则数据来源于上述开源项目，各数据源的版权归原作者所有。

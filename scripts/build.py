@@ -2,6 +2,21 @@
 """
 主构建脚本 — 协调所有子脚本，完成规则集全自动构建。
 
+整体架构:
+    ┌──────────────────────────────────────────────────────────────────┐
+    │                     build.py (主协调器)                          │
+    │                                                                  │
+    │  1. 下载 manual_*.txt ─────────────────────→ tmp/                │
+    │  2. ad_extractor.py  ─→ tmp/ad_domains.txt + tmp/ad_ips.txt     │
+    │     (EasyList + 乘风 + Peter Lowe → 解析 Adblock Plus 格式)      │
+    │  3. gfw_parser.py    ─→ tmp/gfw_domains.txt                     │
+    │     (GFWList base64 解码 + cn-blocked-domain → 纯域名)           │
+    │  4. clash_builder.py ─→ rules/*.yaml + rules/*.txt              │
+    │     (中间产物 + manual 文件 → 7 组规则集)                         │
+    │  5. 生成 timestamp.txt                                           │
+    │  6. 清理 tmp/ (除非 --keep-tmp)                                   │
+    └──────────────────────────────────────────────────────────────────┘
+
 执行流程：
   1. 创建 tmp/ 目录
   2. 下载 manual_*.txt 手动规则文件到 tmp/
