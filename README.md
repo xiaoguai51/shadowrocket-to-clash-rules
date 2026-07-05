@@ -1,10 +1,13 @@
-# Shadowrocket ADBlock Rules → Clash Premium Rule Sets
+# Clash Premium 规则集 · 一键配置模板
 
-将多个开源广告拦截和代理规则数据源转换为 **Clash Premium** 内核兼容的规则集（RULE-SET），适用于所有基于 Clash Premium / mihomo 内核的 GUI 客户端。
+从原始数据源直接构建 **Clash Premium** 内核兼容的规则集（RULE-SET）与一键导入配置模板，适用于所有基于 Clash Premium / mihomo 内核的 GUI 客户端。
 
-本项目从原始数据源（EasyList、乘风规则、GFWList 等）直接构建 Clash 规则集，跳过中间格式转换，零格式损耗。同时保留 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) 项目手动维护的中国 APP 广告拦截规则。
+本项目从多个开源广告拦截和代理规则数据源（EasyList、乘风规则、GFWList 等）直接构建，跳过中间格式转换，零格式损耗。同时保留 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/johnshall/Shadowrocket-ADBlock-Rules-Forever) 项目手动维护的中国 APP 广告拦截规则。
 
-使用 GitHub Actions **每周一北京时间 06:00** 自动拉取最新数据源并更新规则集。
+- **7 组规则集** — 广告拦截 / 代理 / 直连，`.yaml` + `.txt` 双格式
+- **3 种一键配置模板** — 黑名单 / 白名单 / 仅去广告，`clash://` 链接一键导入
+- **每周自动更新** — GitHub Actions 每周一北京时间 06:00 拉取最新数据源
+- **零依赖构建** — 纯 Python 标准库，无第三方包
 
 ---
 
